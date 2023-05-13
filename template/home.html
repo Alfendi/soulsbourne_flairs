@@ -1,0 +1,40 @@
+<!--{% extends "base.html" %}-->
+
+<!--{% block content %}-->
+<!--<div class="main-block">-->
+<!--    <h2>Registration</h2>-->
+<!--    <form action="" method="POST" novalidate>-->
+<!--        &lt;!&ndash; keeps the information and form secure &ndash;&gt;-->
+<!--        {{ form.hidden_tag() }}-->
+
+<!--        <label id="icon-tag" for="id"><i class="fas fa-tag"></i></label>-->
+<!--        {{ form.id(class_="text", placeholder="Device ID") }}-->
+
+<!--        &lt;!&ndash; Device ID Error Message &ndash;&gt;-->
+<!--        {% for error in form.id.errors %}-->
+<!--        <h3><span style="color: red;">{{ error }}</span></h3>-->
+<!--        {% endfor %}-->
+
+<!--        <label id="icon-toilet" for="name"><i class="fas fa-toilet-paper"></i></label>-->
+<!--        {{ form.name(class_="text", placeholder="Ex: The Throne") }}-->
+
+<!--        &lt;!&ndash; Toilet Name Error Message &ndash;&gt;-->
+<!--        {% for error in form.name.errors %}-->
+<!--        <h3><span style="color: red;">{{ error }}</span></h3>-->
+<!--        {% endfor %}-->
+
+<!--        <label id="icon-phone" for="phone"><i class="fas fa-phone"></i></label>-->
+<!--        {{ form.recipient(class_="phone", placeholder="Ex: 9498245011") }}-->
+
+<!--        &lt;!&ndash; Telephone Error Message &ndash;&gt;-->
+<!--        {% for error in form.recipient.errors %}-->
+<!--        <h3><span style="color: red;">{{ error }}</span></h3>-->
+<!--        {% endfor %}-->
+
+<!--        <div class="btn-block">-->
+<!--            <p>For security purposes, phone numbers are NOT stored.</p>-->
+<!--            {{ form.submit(class_="submit") }}-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+<!--{% endblock %}-->
