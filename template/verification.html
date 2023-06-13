@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main-block">
+    <h2>Firelink Shrine</h2>
+    <form action="" method="POST">
+        <!-- Keeps the information and form secure. -->
+        {{ form.hidden_tag() }}
+
+        <label id="icon-fire"><i class="fas fa-fire"></i></label>
+        {{ form.passkey(class_="text", placeholder="Please enter passkey.") }}
+
+        <!-- Passkey Error Message -->
+        {% for error in form.passkey.errors %}
+        <h3><span style="color: red;">{{ error }}</span></h3>
+        {% endfor %}
+
+        <div class="btn-block">
+            <p>Praise the sun! \`[T] /</p>
+            {{ form.submit(class_="submit") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
