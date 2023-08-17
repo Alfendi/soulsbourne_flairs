@@ -23,6 +23,7 @@ Usage:
     python3 obtain_refresh_token.py
 
 """
+
 import random
 import socket
 import sys
@@ -39,7 +40,9 @@ def main():
 
     reddit = praw.Reddit(
         redirect_uri="http://localhost:8080",
-        user_agent="obtain_refresh_token/v0 by u/bboe",
+        user_agent="obtain_refresh_token/v0 by u/Aveldaheilt",
+        client_id="D_frkm7plOkjQ3xIb6R3MQ",
+        client_secret="MtY7eWYb3lwv97qwi71cSJE48xPE3w"
     )
     state = str(random.randint(0, 65000))
     url = reddit.auth.url(duration="permanent", scopes=scopes, state=state)

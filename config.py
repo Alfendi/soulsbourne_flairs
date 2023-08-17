@@ -7,7 +7,7 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 PASSKEY = "Majestic!"
 SECRET_KEY = "A hunter is truly a hunter!"
 
-DB_USER = 'root'
-DB_PASSWORD = 'zms2023'
-DB_NAME = 'zotmyschedule'
+DB_USER = 'alfendi'
+DB_PASSWORD = 'layton'
+DB_NAME = 'token_db'
 DB_CONNECTION_NAME = 'zotmyschedule:us-west1:zotmyschedule'

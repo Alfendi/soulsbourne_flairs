@@ -1,7 +1,8 @@
-import config
 from flask import Flask, abort, request, render_template, redirect, url_for
 from uuid import uuid4
-from classes import Verification, LoginManager, FlairChange
+from classes import *
+import config
+import reddit
 import requests
 import requests.auth
 import urllib.parse
@@ -14,6 +15,12 @@ def user_agent():
 def base_headers():
     return {"User-Agent": user_agent()}
 
+
+r = praw.Reddit(
+    client_id=config.CLIENT_ID,
+    client_secret=config.CLIENT_SECRET,
+    redirect_uri=config.REDIRECT_URI,
+    user_agent=config.USER_AGENT)
 
 app = Flask(__name__, template_folder="template", static_folder='static')
 app.config['SECRET_KEY'] = config.SECRET_KEY
@@ -36,7 +43,7 @@ def verification():
         passkey = request.form.get("passkey")
         if passkey == config.PASSKEY:
             login_manager.set_verified()
-            return make_authorization_url()
+            return redirect(make_authorization_url())
     return render_template('verification.html', form=form)
 
 
@@ -82,7 +89,7 @@ def reddit_callback():
         abort(403)
     code = request.args.get('code')
     access_token = get_token(code)
-    return "Welcome, %s" % get_username(access_token)
+    return redirect(url_for('change_flair'))
 
 
 def get_token(code):
@@ -99,6 +106,7 @@ def get_token(code):
     return token_json["access_token"]
 
 
+# example API call
 def get_username(access_token):
     headers = base_headers()
     headers.update({"Authorization": "bearer " + access_token})
