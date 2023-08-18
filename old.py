@@ -1,15 +1,14 @@
 from flask import Flask, abort, request, render_template, redirect, url_for
 from uuid import uuid4
 from classes import *
-import config
-import reddit
+from config import *
 import requests
 import requests.auth
 import urllib.parse
 
 
 def user_agent():
-    return config.USER_AGENT
+    return USER_AGENT
 
 
 def base_headers():
@@ -17,13 +16,13 @@ def base_headers():
 
 
 r = praw.Reddit(
-    client_id=config.CLIENT_ID,
-    client_secret=config.CLIENT_SECRET,
-    redirect_uri=config.REDIRECT_URI,
-    user_agent=config.USER_AGENT)
+    client_id=CLIENT_ID,
+    client_secret=CLIENT_SECRET,
+    redirect_uri=REDIRECT_URI,
+    user_agent=USER_AGENT)
 
 app = Flask(__name__, template_folder="template", static_folder='static')
-app.config['SECRET_KEY'] = config.SECRET_KEY
+app.config['SECRET_KEY'] = SECRET_KEY
 
 login_manager = LoginManager()
 
@@ -41,7 +40,7 @@ def verification():
     form = Verification(request.form)
     if form.validate_on_submit():
         passkey = request.form.get("passkey")
-        if passkey == config.PASSKEY:
+        if passkey == PASSKEY:
             login_manager.set_verified()
             return redirect(make_authorization_url())
     return render_template('verification.html', form=form)
@@ -61,10 +60,10 @@ def error():
 def make_authorization_url():
     state = str(uuid4())
     save_created_state(state)
-    params = {"client_id": config.CLIENT_ID,
+    params = {"client_id": CLIENT_ID,
               "response_type": "code",
               "state": state,
-              "redirect_uri": config.REDIRECT_URI,
+              "redirect_uri": REDIRECT_URI,
               "duration": "temporary",
               "scope": "identity"}
     url = "https://ssl.reddit.com/api/v1/authorize?" + urllib.parse.urlencode(params)
@@ -93,10 +92,10 @@ def reddit_callback():
 
 
 def get_token(code):
-    client_auth = requests.auth.HTTPBasicAuth(config.CLIENT_ID, config.CLIENT_SECRET)
+    client_auth = requests.auth.HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET)
     post_data = {"grant_type": "authorization_code",
                  "code": code,
-                 "redirect_uri": config.REDIRECT_URI}
+                 "redirect_uri": REDIRECT_URI}
     headers = base_headers()
     response = requests.post("https://ssl.reddit.com/api/v1/access_token",
                              auth=client_auth,
