@@ -46,4 +46,4 @@ class FlairChange(FlaskForm):
 
     name = StringField('name', validators=[DataRequired(), Length(min=1, max=20)])
     flairs = GameChoices(u'Subreddit Flairs', choices=games)
-    submit = SubmitField('Apply')
+    submit = SubmitField('Submit')
